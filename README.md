@@ -64,56 +64,70 @@ This project implements a transaction management system that allows users to cre
 http://localhost:8080/swagger-ui/index.html
 
 #### 1.1 Add a new transaction
-![img_1.png](img_1.png)
-![img_2.png](img_2.png)
+![image](https://github.com/user-attachments/assets/bc5064af-8129-447f-b7d1-400e1010e83f)
+![image](https://github.com/user-attachments/assets/b3b495ec-0519-489a-a61f-0344eb503184)
 #### 1.2 Add a invalid parameter transaction
 ##### 1.2.1 transaction subject is not blank
-![img_3.png](img_3.png)
-![img_4.png](img_4.png)
+![img_3](https://github.com/user-attachments/assets/0452d5c6-77be-4b49-bb4e-66d462dbfd60)
+![img_4](https://github.com/user-attachments/assets/f8c8731e-a98f-44e1-9059-2487305d673a)
+
 ##### 1.2.2 Invalid transaction type enum value
-![img_5.png](img_5.png)
-![img_6.png](img_6.png)
+![img_5](https://github.com/user-attachments/assets/48065717-da03-401e-83e5-f6d7115bbc47)
+![img_6](https://github.com/user-attachments/assets/c4d768b9-ca69-433d-8ad8-b6b5d2ecaf21)
+
 ##### 1.2.3 amount must be greater than 0.01
-![img_7.png](img_7.png)
-![img_8.png](img_8.png)
+![img_7](https://github.com/user-attachments/assets/bb9e1483-e0d7-4566-9c7e-ecdff1b447c4)
+![img_8](https://github.com/user-attachments/assets/5eb2706a-dce0-4cf9-a491-66c5c23d6911)
+
 #### 1.3 Add a duplicate transaction
-![img_9.png](img_9.png)
-![img_10.png](img_10.png)
+![img_9](https://github.com/user-attachments/assets/6a9d5312-328e-4d3b-aa40-466d30bc5764)
+
 #### 1.4 Modify a transaction
-![img_11.png](img_11.png)
-![img_12.png](img_12.png)
+![img_11](https://github.com/user-attachments/assets/7281dc6e-a16d-468b-9ce3-31482c27c3e4)
+![img_12](https://github.com/user-attachments/assets/c458cac5-1177-473b-a91e-59f9bf5ee343)
+
 #### 1.5 Modify a non-exist transaction
-![img_13.png](img_13.png)
-![img_14.png](img_14.png)
+![img_13](https://github.com/user-attachments/assets/1990b4c4-a936-4d62-b8cf-a93037e5f239)
+![img_14](https://github.com/user-attachments/assets/f26d01a3-3b35-4c99-84ff-1b22d5a54988)
+
 #### 1.6 Delete a transaction
-![img_15.png](img_15.png)
-![img_16.png](img_16.png)
+![img_15](https://github.com/user-attachments/assets/7318dcdb-8ebc-488a-9cbb-b2262e97d9cb)
+![img_16](https://github.com/user-attachments/assets/64f8b25a-fd56-479b-bdc1-e9783fe7204c)
+
 #### 1.7 Query not deleted transaction by pagination
-![img_17.png](img_17.png)
-![img_18.png](img_18.png)
+![img_17](https://github.com/user-attachments/assets/d876d812-6c03-4958-b3a8-9f57e2f8de7f)
+![img_18](https://github.com/user-attachments/assets/6dbdd43c-0958-45c7-a1a3-22f508cef436)
+
 #### 1.8 Query revise transaction records
-![img_19.png](img_19.png)
-![img_20.png](img_20.png)
+![img_19](https://github.com/user-attachments/assets/3568d5a4-1cbd-4e8e-a60b-59809321fdb5)
+![img_20](https://github.com/user-attachments/assets/0c9603ae-3b5c-4bd0-b0c7-b02fbf15fdeb)
+
 
 #### 2. Use Web Page
 
 http://localhost:8080/index.html
 
 #### 2.1 Add a transaction
-![img_21.png](img_21.png)
+![img_21](https://github.com/user-attachments/assets/5c4122c5-9da5-41d6-9371-95d20183beac)
+
 #### 2.2 Edit a transaction
-![img_22.png](img_22.png)
+![img_22](https://github.com/user-attachments/assets/2aaba4ab-e2eb-4af9-b1fc-f3aedd6aa260)
+
 #### 2.3 Delete a transaction
-![img_23.png](img_23.png)
+![img_23](https://github.com/user-attachments/assets/250b6030-d2e2-43a6-b50f-93afcabc7e7b)
+
 #### 2.4 Query not deleted transaction by pagination
-![img_24.png](img_24.png)
+![img_24](https://github.com/user-attachments/assets/80f1c028-02e7-42c2-acd7-0251bd7ca961)
+
 #### 2.5 Invalid parameter
-![img_25.png](img_25.png)
+![img_25](https://github.com/user-attachments/assets/f2cc51b1-37d1-4073-82c6-ad0476a10df8)
+
 
 ### Testing
 #### TransactionControllerTest.class
 This test suite validates the functionality of the Transaction Management API endpoints using Spring Boot's testing framework.All tests passed.
-![img_29.png](img_29.png)
+![img_29](https://github.com/user-attachments/assets/fb009de8-e07b-47ed-aa73-e935289cdefe)
+
 
 #### Performance Test
 This load test suite evaluates the performance and reliability of the Transaction Management API under concurrent load conditions using Spring Boot's testing framework.
@@ -137,9 +151,10 @@ The test creates multiple transactions concurrently with the following character
   
 - Concurrent POST requests to `/transaction`
 ##### Sample Output
-![img_26.png](img_26.png)
-![img_27.png](img_27.png)
-![img_28.png](img_28.png)
+![img_26](https://github.com/user-attachments/assets/c2733282-7f7f-42ab-a737-d205e9b185be)
+![img_27](https://github.com/user-attachments/assets/30641f3b-4fe1-4f4b-9e4f-eb742a72e574)
+![img_28](https://github.com/user-attachments/assets/fcaa7c16-67d6-4b3c-90b2-a2894deab036)
+
 
 ### External Libraires outside the standard JDK
 ##### 1. org.projectlombok.lombok
