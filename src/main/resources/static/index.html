@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transaction Management</title>
+    <link rel="stylesheet" href="https://www.jeasyui.com/easyui/themes/default/easyui.css">
+    <link rel="stylesheet" href="https://www.jeasyui.com/easyui/themes/icon.css">
+    <script src="https://www.jeasyui.com/easyui/jquery.min.js"></script>
+    <script src="https://www.jeasyui.com/easyui/jquery.easyui.min.js"></script>
+</head>
+<body>
+<h2>Transaction Management</h2>
+<div style="margin-bottom: 10px;">
+    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" onclick="openAddDialog()">Add</a >
+    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" onclick="openEditDialog()">Edit</a >
+    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" onclick="removeTransaction()">Delete</a >
+</div>
+<table id="transactionGrid" class="easyui-datagrid" style="width: 100%; height: auto;"
+       data-options="
+            url: 'transaction/list',
+            method: 'get',
+            fitColumns: true,
+            singleSelect: true,
+            rownumbers: true,
+            pagination: true,
+            toolbar: '#toolbar',
+            columns: [[
+                { field: 'orderNo', title: 'orderNo', width: 200 },
+                { field: 'type', title: 'type', width: 100 },
+                { field: 'subject', title: 'subject', width: 100 },
+                { field: 'object', title: 'object', width: 100 },
+                { field: 'amount', title: 'amount', width: 100 },
+                { field: 'remark', title: 'remark', width: 100 },
+                { field: 'isRevise', title: 'isRevise', width: 100 }
+            ]],
+            onBeginEdit: function(rowIndex, rowData) {
+                rowData.status = rowData.status || 'active';
+            }">
+</table>
+<!-- Add and Edit Dialog -->
+<div id="transactionDialog" class="easyui-dialog" style="width: 400px; height: 300px; padding: 10px;"
+     data-options="closed: true, buttons: '#transactionDialogButtons'">
+    <form id="transactionForm" method="post">
+        <div style="margin-bottom: 10px;display:none">
+            <label for="orderNo">orderNo:</label>
+            <input type="text" id="orderNo" name="orderNo" class="easyui-textbox" >
+        </div>
+        <div style="margin-bottom: 10px;">
+            <label for="type">type：</label>
+            <input type="text" id="type" name="type" class="easyui-textbox" required="true" data-options="prompt:'DEPOSIT / WITHDRAW /TRANSFER'" >
+        </div>
+        <div style="margin-bottom: 10px;">
+            <label for="subject">subject：</label>
+            <input type="text" id="subject" name="subject" class="easyui-textbox" required="true">
+        </div>
+        <div style="margin-bottom: 10px;">
+            <label for="object">object：</label>
+            <input type="text" id="object" name="object" class="easyui-textbox" required="true">
+        </div>
+        <div style="margin-bottom: 10px;">
+            <label for="amount">amount：</label>
+            <input type="text" id="amount" name="amount" class="easyui-textbox" required="true">
+        </div>
+        <div style="margin-bottom: 10px;">
+            <label for="remark">remark：</label>
+            <input type="text" id="remark" name="remark" class="easyui-textbox" >
+        </div>
+    </form>
+</div>
+
+<div id="transactionDialogButtons">
+    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-ok" onclick="saveTransaction()">save</a >
+    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="closeDialog()">cancel</a >
+</div>
+
+<script>
+    // open add dialog
+    function openAddDialog() {
+        $('#transactionDialog').dialog('open').dialog('setTitle', 'Add Transaction');
+        $('#transactionForm').form('clear');
+    }
+
+    // open edit dialog
+    function openEditDialog() {
+        var selected = $('#transactionGrid').datagrid('getSelected');
+        if (!selected) {
+            $.messager.alert('tips', 'Please select a row of data first！');
+            return;
+        }
+        $('#transactionDialog').dialog('open').dialog('setTitle', 'Edit Transaction');
+        $('#transactionForm').form('load', selected);
+    }
+
+    // save transaction
+    function saveTransaction() {
+        var selected = $('#transactionGrid').datagrid('getSelected');
+        var isEdit = !!selected;
+
+        var transactionData = {
+            orderNo: $('#orderNo').val(),
+            type: $('#type').val(),
+            subject: $('#subject').val(),
+            object: $('#object').val(),
+            amount: $('#amount').val()
+        };
+        if (isEdit) {
+            $.ajax({
+                url: 'transaction/'+ $('#orderNo').val(),
+                type: 'put',
+                data: JSON.stringify(transactionData),
+                contentType: 'application/json',
+                success: function() {
+                    $('#transactionGrid').datagrid('updateRow', {
+                        index: $('#transactionGrid').datagrid('getRowIndex', selected),
+                        row: transactionData
+                    });
+                    closeDialog();
+                },
+                error: function(xhr, status, error) {
+                    alert(xhr.responseText);
+                }
+            });
+        } else {
+            $.ajax({
+                url: 'transaction',
+                type: 'post',
+                data: JSON.stringify(transactionData),
+                contentType: 'application/json',
+                success: function(data) {
+                    $('#transactionGrid').datagrid('appendRow', data);
+                    closeDialog();
+                },
+                error: function(xhr, status, error) {
+                    alert(xhr.responseText);
+                }
+            });
+        }
+    }
+
+    // 删除交易
+    function removeTransaction() {
+        var selected = $('#transactionGrid').datagrid('getSelected');
+        if (!selected) {
+            $.messager.alert('tips', 'Please select a row of data first！');
+            return;
+        }
+        $.messager.confirm('confirm', 'ensure delete？', function(r) {
+            if (r) {
+                $.ajax({
+                    url: 'transaction/' + selected.orderNo,
+                    type: 'delete',
+                    data: { orderNo: selected.orderNo },
+                    success: function() {
+                        $('#transactionGrid').datagrid('deleteRow', $('#transactionGrid').datagrid('getRowIndex', selected));
+                    }
+                });
+            }
+        });
+    }
+
+    // close dialog
+    function closeDialog() {
+        $('#transactionDialog').dialog('close');
+    }
+
+</script>
+</body>
+</html>
