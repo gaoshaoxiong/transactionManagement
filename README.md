@@ -81,6 +81,7 @@ http://localhost:8080/swagger-ui/index.html
 
 #### 1.3 Add a duplicate transaction
 ![img_9](https://github.com/user-attachments/assets/6a9d5312-328e-4d3b-aa40-466d30bc5764)
+![img_10](https://github.com/user-attachments/assets/a23a6238-0686-4602-b8f2-ac7e3863cf97)
 
 #### 1.4 Modify a transaction
 ![img_11](https://github.com/user-attachments/assets/7281dc6e-a16d-468b-9ce3-31482c27c3e4)
