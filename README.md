@@ -142,7 +142,7 @@ This load test suite evaluates the performance and reliability of the Transactio
 - Total Requests: 10000
 - Timeout: 1 minutes
 - Success Rate Threshold: 100%
-##### Test Scenario: Transaction Creation
+##### Test Scenario 1: Transaction Creation
 The test creates multiple transactions concurrently with the following characteristics:
 - Fixed type (DEPOSIT)
 - Fixed subject (TEST-A)
@@ -155,6 +155,25 @@ The test creates multiple transactions concurrently with the following character
 ![img_26](https://github.com/user-attachments/assets/c2733282-7f7f-42ab-a737-d205e9b185be)
 ![img_27](https://github.com/user-attachments/assets/30641f3b-4fe1-4f4b-9e4f-eb742a72e574)
 ![img_28](https://github.com/user-attachments/assets/fcaa7c16-67d6-4b3c-90b2-a2894deab036)
+
+##### Test Scenario 2: Transaction Modify
+The test modiify a transaction concurrently with the following characteristics:
+- Fixed orderNo (599af103-968e-40e3-94bd-b62f369f97a1)
+- Fixed type (DEPOSIT)
+- Fixed subject (TEST-A)
+- Fixed object (TEST-B)
+- Fixed amount (2000)
+- Fixed remark (TEST modify a transaction)
+  
+- Concurrent PUT requests to `/transaction/599af103-968e-40e3-94bd-b62f369f97a1`
+
+##### Sample Output
+![image](https://github.com/user-attachments/assets/5c60bd41-db48-453e-9c00-18a595e2a6ba)
+![image](https://github.com/user-attachments/assets/ef9b3761-a556-40bb-bce0-da1d37e1a26b)
+
+Prove data modify success by 'Query Revised Record Api'
+![image](https://github.com/user-attachments/assets/e03ab2b2-d9bd-4e05-b366-d3b889681e0a)
+![image](https://github.com/user-attachments/assets/a14c0c30-64b1-42f3-8b54-b9bd6dc714b9)
 
 
 ### External Libraires outside the standard JDK
