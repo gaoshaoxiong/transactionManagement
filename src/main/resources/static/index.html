@@ -12,6 +12,15 @@
 <body>
 <h2>Transaction Management</h2>
 <div style="margin-bottom: 10px;">
+    <div style="margin-bottom: 50px;">
+        <label for="queryOrderNo">orderNo:</label>
+        <input type="text" id="queryOrderNo" name="queryOrderNo" class="easyui-textbox" >
+        <span>
+            <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" onclick="queryList()">Search</a >
+        </span>
+    </div>
+</div>
+<div style="margin-bottom: 10px;">
     <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" onclick="openAddDialog()">Add</a >
     <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" onclick="openEditDialog()">Edit</a >
     <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" onclick="removeTransaction()">Delete</a >
@@ -32,7 +41,7 @@
                 { field: 'object', title: 'object', width: 100 },
                 { field: 'amount', title: 'amount', width: 100 },
                 { field: 'remark', title: 'remark', width: 100 },
-                { field: 'isRevise', title: 'isRevise', width: 100 }
+                { field: 'isRevise', title: 'isRevise', width: 100,formatter:formatterRevisedRecords }
             ]],
             onBeginEdit: function(rowIndex, rowData) {
                 rowData.status = rowData.status || 'active';
@@ -48,7 +57,11 @@
         </div>
         <div style="margin-bottom: 10px;">
             <label for="type">type：</label>
-            <input type="text" id="type" name="type" class="easyui-textbox" required="true" data-options="prompt:'DEPOSIT / WITHDRAW /TRANSFER'" >
+            <select id="type" class="easyui-combobox" name="type" required="true" style="width:180px;" >
+                <option value="DEPOSIT">DEPOSIT</option>
+                <option value="WITHDRAW">WITHDRAW</option>
+                <option value="TRANSFER">TRANSFER</option>
+            </select>
         </div>
         <div style="margin-bottom: 10px;">
             <label for="subject">subject：</label>
@@ -74,7 +87,26 @@
     <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="closeDialog()">cancel</a >
 </div>
 
+<div id="revisedRecordDialog" class="easyui-dialog" title="Revised Record" style="width:600px;height:400px;" data-options="closed:true">
+    <table id="revisedRecordGrid" class="easyui-datagrid" style="width:100%;height:100%"
+           data-options="url:'transaction/revise/record',fitColumns:true,method:'get'">
+        <thead>
+        <tr>
+            <th data-options="field:'time',width:100">Time</th>
+            <th data-options="field:'amount',width:100">Amount</th>
+            <th data-options="field:'remark',width:100">Remark</th>
+        </tr>
+        </thead>
+    </table>
+</div>
+
 <script>
+    function queryList() {
+        var param = { "orderNo": $('#queryOrderNo').val() };
+        $("#transactionGrid").datagrid("options").queryParams = param;
+        $("#transactionGrid").datagrid("reload");
+    }
+
     // open add dialog
     function openAddDialog() {
         $('#transactionDialog').dialog('open').dialog('setTitle', 'Add Transaction');
@@ -102,7 +134,8 @@
             type: $('#type').val(),
             subject: $('#subject').val(),
             object: $('#object').val(),
-            amount: $('#amount').val()
+            amount: $('#amount').val(),
+            remark: $('#remark').val()
         };
         if (isEdit) {
             $.ajax({
@@ -110,10 +143,10 @@
                 type: 'put',
                 data: JSON.stringify(transactionData),
                 contentType: 'application/json',
-                success: function() {
+                success: function(data) {
                     $('#transactionGrid').datagrid('updateRow', {
                         index: $('#transactionGrid').datagrid('getRowIndex', selected),
-                        row: transactionData
+                        row: data
                     });
                     closeDialog();
                 },
@@ -138,7 +171,7 @@
         }
     }
 
-    // 删除交易
+    // remove transaction
     function removeTransaction() {
         var selected = $('#transactionGrid').datagrid('getSelected');
         if (!selected) {
@@ -162,6 +195,21 @@
     // close dialog
     function closeDialog() {
         $('#transactionDialog').dialog('close');
+    }
+
+    function formatterRevisedRecords(value, row, index) {
+        if (value === 1) {
+            return '<a href="javascript:void(0)" class="easyui-linkbutton" onclick="openRevisedRecordDialog(\'' + row.orderNo + '\')" style="margin-right:10px;">revised records</a>';
+        } else {
+            value = '';
+        }
+    }
+
+    function openRevisedRecordDialog(orderNo){
+        var param = { "orderNo": orderNo };
+        $("#revisedRecordDialog").dialog("open");
+        $("#revisedRecordGrid").datagrid("options").queryParams = param;
+        $("#revisedRecordGrid").datagrid("reload");
     }
 
 </script>
