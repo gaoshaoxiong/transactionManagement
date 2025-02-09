@@ -109,13 +109,13 @@ http://localhost:8080/swagger-ui/index.html
 http://localhost:8080/index.html
 
 #### 2.1 Add a transaction
-![img_21](https://github.com/user-attachments/assets/5c4122c5-9da5-41d6-9371-95d20183beac)
+![image](https://github.com/user-attachments/assets/8697516d-8222-40be-a39d-708832ed9b62)
 
 #### 2.2 Edit a transaction
-![img_22](https://github.com/user-attachments/assets/2aaba4ab-e2eb-4af9-b1fc-f3aedd6aa260)
+![image](https://github.com/user-attachments/assets/e582eb1f-7863-4147-af8d-c7f08324700e)
 
 #### 2.3 Delete a transaction
-![img_23](https://github.com/user-attachments/assets/250b6030-d2e2-43a6-b50f-93afcabc7e7b)
+![image](https://github.com/user-attachments/assets/98479fa7-b978-485a-a61f-f8d1fb6934dc)
 
 #### 2.4 Query not deleted transaction by pagination
 ![img_24](https://github.com/user-attachments/assets/80f1c028-02e7-42c2-acd7-0251bd7ca961)
