@@ -120,9 +120,14 @@ http://localhost:8080/index.html
 #### 2.4 Query not deleted transaction by pagination
 ![img_24](https://github.com/user-attachments/assets/80f1c028-02e7-42c2-acd7-0251bd7ca961)
 
+#### 2.5 Query not deleted transaction by orderNo
+![image](https://github.com/user-attachments/assets/0972aa4b-915d-4fef-a5cb-ed7f3566091b)
+
+#### 2.6 Query revised transaction records
+![image](https://github.com/user-attachments/assets/c83e2d10-7f0f-4eaf-9db4-ed3baf4609d1)
+
 #### 2.5 Invalid parameter
 ![img_25](https://github.com/user-attachments/assets/f2cc51b1-37d1-4073-82c6-ad0476a10df8)
-
 
 ### Testing
 #### TransactionControllerTest.class
